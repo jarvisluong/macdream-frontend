@@ -6,7 +6,14 @@ import Typography from "../../components/Typography";
 import { COLORS } from "../../config/color";
 import { RowWithIconText, Row } from "../../components/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPig, faWineGlassAlt, faSackDollar, faCashRegister, faBolt, faHomeLgAlt } from "@fortawesome/pro-regular-svg-icons";
+import {
+  faPig,
+  faWineGlassAlt,
+  faSackDollar,
+  faCashRegister,
+  faBolt,
+  faHomeLgAlt
+} from "@fortawesome/pro-regular-svg-icons";
 import { faCreditCard } from "@fortawesome/pro-light-svg-icons";
 import { makeStyles } from "@material-ui/core/styles";
 import GoalCard from "../../components/GoalCard";
@@ -44,16 +51,54 @@ const transactionIconMap = {
   Withdrawal: faCashRegister,
   Rent: faHomeLgAlt,
   Electronics: faBolt
-}
+};
+
+const initGoal = [
+  {
+    id: 1,
+    personId: 1,
+    targetDt: "2020-05-14T00:00:00Z",
+    goalType: "Purchase",
+    saving: 0,
+    price: 2500,
+    name: "Macbook Pro",
+    description: "I love the new macbook and want one"
+  },
+  {
+    id: 2,
+    personId: 1,
+    targetDt: "2020-11-10T00:00:00Z",
+    goalType: "CashSaving",
+    saving: 0,
+    price: 5000,
+    name: "Rainy Day Reserves",
+    description:
+      "I want to always have enough cash saved to be unemployed for a year and not stress out"
+  },
+  {
+    id: 3,
+    personId: 1,
+    targetDt: "2020-11-10T00:00:00Z",
+    goalType: "Investing",
+    saving: 0,
+    price: 0,
+    name: "S&P500 ETF",
+    description: "I want to invest in a shares index fund"
+  }
+];
 
 export default function Profile() {
   const classes = useStyles();
 
   const { data: personData } = useSWR("/api/persons", fetch);
   const { data: transactionData } = useSWR("/api/transactions", fetch);
+  const { data: goalData } = useSWR("/api/goals", fetch);
+
   const [person] = personData ? personData.results : [initProfile];
 
   const transactions = transactionData ? transactionData.results : [];
+
+  const [macbookGoal, _, sp500Goal] = goalData ? goalData.results : initGoal;
 
   return (
     <div style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}>
@@ -99,9 +144,9 @@ export default function Profile() {
             content={
               <div>
                 <Typography size={16} color={COLORS.primaryColor} bold>
-                  SFP500ETF
+                  {sp500Goal.name}
                 </Typography>
-                <Typography>9600,0$</Typography>
+                <Typography>${sp500Goal.saving}</Typography>
               </div>
             }
           />
@@ -112,9 +157,9 @@ export default function Profile() {
             content={
               <div>
                 <Typography size={16} color={COLORS.primaryColor} bold>
-                  SFP500ETF
+                  {macbookGoal.name}
                 </Typography>
-                <Typography>9600,0$</Typography>
+                <Typography>${macbookGoal.price}</Typography>
               </div>
             }
           />
