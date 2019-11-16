@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Typography from "../../components/Typography";
@@ -8,7 +8,7 @@ import { COLORS } from "../../config/color";
 import styled from "styled-components";
 import Switch from "react-ios-switch";
 import { UsageChart } from "../../components/UsageChart";
-import useSWR from "swr";
+import useSWR, { trigger } from "swr";
 import { fetch } from "../../lib/fetch";
 import Axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -74,7 +74,9 @@ export default function index() {
         }
       ];
 
-  console.log(visaMcc)
+  useEffect(() => {
+    setIsAutomate(visaMcc.isSaving);
+  }, [visaMcc.isSaving]);
 
   const renderGoal = () => {
     // see transactionMap.js for knowing which id is which
@@ -176,9 +178,12 @@ export default function index() {
               <Switch
                 checked={visaMcc.isSaving}
                 onChange={checked => {
+                  setIsAutomate(checked);
                   Axios.put(
                     `/api/update-visa-mcc?isSaving=${checked}&visaMccId=${visaMcc.id}`
-                  );
+                  ).then(() => {
+                    trigger("/api/get-visa-mcc");
+                  });
                 }}
               />
             </div>
