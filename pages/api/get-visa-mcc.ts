@@ -6,7 +6,7 @@ import {
   import { NextApiResponse, NextApiRequest } from "next";
   
   export default async function updateVisaMcc(
-    req: NextApiRequest,
+    _req: NextApiRequest,
     res: NextApiResponse
   ) {
     try {
