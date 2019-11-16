@@ -42,7 +42,7 @@ export class PersonJson
     public constructor(init?: Partial<PersonJson>) { (Object as any).assign(this, init); }
 }
 
-export enum VisaMccEnum
+export enum visaMccIdEnum
 {
     Missing = 0,
     Electronics = 1234,
@@ -172,8 +172,8 @@ export class TransactionTbl
     // @References(Type=typeof(PersonTbl))
     public personId: number;
 
-    // @References(Type=typeof(VisaMccTbl))
-    public visaMccId: number;
+    // @References(Type=typeof(visaMccIdTbl))
+    public visaMccIdId: number;
 
     // @Required()
     public paymentDt: string;
@@ -185,15 +185,15 @@ export class TransactionTbl
     public constructor(init?: Partial<TransactionTbl>) { (Object as any).assign(this, init); }
 }
 
-export class VisaMccTbl
+export class visaMccIdTbl
 {
     public id: number;
     // @Required()
-    public visaMcc: VisaMccEnum;
+    public visaMccId: visaMccIdEnum;
 
     public isSaving: boolean;
 
-    public constructor(init?: Partial<VisaMccTbl>) { (Object as any).assign(this, init); }
+    public constructor(init?: Partial<visaMccIdTbl>) { (Object as any).assign(this, init); }
 }
 
 export class GetAllThePeopleAndTransactionsResponse
@@ -203,13 +203,13 @@ export class GetAllThePeopleAndTransactionsResponse
     public constructor(init?: Partial<GetAllThePeopleAndTransactionsResponse>) { (Object as any).assign(this, init); }
 }
 
-export class UpdateVisaMccResponse
+export class UpdatevisaMccIdResponse
 {
-    public visaMccId: number;
-    public visaMcc: VisaMccEnum;
+    public visaMccIdId: number;
+    public visaMccId: visaMccIdEnum;
     public isSaving: boolean;
 
-    public constructor(init?: Partial<UpdateVisaMccResponse>) { (Object as any).assign(this, init); }
+    public constructor(init?: Partial<UpdatevisaMccIdResponse>) { (Object as any).assign(this, init); }
 }
 
 export class UpdateGoalResponse
@@ -259,15 +259,15 @@ export class GetAllThePeopleAndTransactionsRequest implements IReturn<GetAllTheP
     public getTypeName() { return 'GetAllThePeopleAndTransactionsRequest'; }
 }
 
-// @Route("/visamcc/update", "PUT")
-export class UpdateVisaMccRequest implements IReturn<UpdateVisaMccResponse>
+// @Route("/visaMccId/update", "PUT")
+export class UpdatevisaMccIdRequest implements IReturn<UpdatevisaMccIdResponse>
 {
-    public visaMccId: number;
+    public visaMccIdId: number;
     public isSaving: boolean;
 
-    public constructor(init?: Partial<UpdateVisaMccRequest>) { (Object as any).assign(this, init); }
-    public createResponse() { return new UpdateVisaMccResponse(); }
-    public getTypeName() { return 'UpdateVisaMccRequest'; }
+    public constructor(init?: Partial<UpdatevisaMccIdRequest>) { (Object as any).assign(this, init); }
+    public createResponse() { return new UpdatevisaMccIdResponse(); }
+    public getTypeName() { return 'UpdatevisaMccIdRequest'; }
 }
 
 // @Route("/goals/update", "PUT")
@@ -289,7 +289,7 @@ export class InsertNewTransactionRequest implements IReturn<InsertNewTransaction
     public personId: number;
     public paymentDt: string;
     public price: number;
-    public visaMccId: number;
+    public visaMccIdId: number;
     public description: string;
 
     public constructor(init?: Partial<InsertNewTransactionRequest>) { (Object as any).assign(this, init); }
@@ -324,12 +324,12 @@ export class QueryTransactions extends QueryDb<TransactionTbl> implements IRetur
     public getTypeName() { return 'QueryTransactions'; }
 }
 
-// @Route("/autoquery/visamccs")
-export class QueryVisaMccs extends QueryDb<VisaMccTbl> implements IReturn<QueryResponse<VisaMccTbl>>
+// @Route("/autoquery/visaMccIds")
+export class QueryvisaMccIds extends QueryDb<visaMccIdTbl> implements IReturn<QueryResponse<visaMccIdTbl>>
 {
 
-    public constructor(init?: Partial<QueryVisaMccs>) { super(init); (Object as any).assign(this, init); }
-    public createResponse() { return new QueryResponse<VisaMccTbl>(); }
-    public getTypeName() { return 'QueryVisaMccs'; }
+    public constructor(init?: Partial<QueryvisaMccIds>) { super(init); (Object as any).assign(this, init); }
+    public createResponse() { return new QueryResponse<visaMccIdTbl>(); }
+    public getTypeName() { return 'QueryvisaMccIds'; }
 }
 

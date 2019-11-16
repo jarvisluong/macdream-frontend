@@ -29,7 +29,7 @@ const initTransaction = {
   personId: 1,
   paymentDt: "2019-10-06T00:00:00Z",
   price: 200,
-  visaMcc: "",
+  visaMccId: "",
   description: ""
 };
 
@@ -95,7 +95,7 @@ export default function index() {
 
       <TransactionItem
         title={transaction.description}
-        visaMcc={transaction.visaMcc}
+        visaMccId={transaction.visaMccId}
         price={transaction.price}
         date={transaction.paymentDt}
       />

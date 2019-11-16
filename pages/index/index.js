@@ -175,7 +175,7 @@ export default function Profile() {
                   }}
                 >
                   <TransactionItem
-                    icon={transactionIconMap[transaction.visaMcc]}
+                    icon={transactionIconMap[transaction.visaMccId]}
                     title={transaction.description}
                     date={transaction.paymentDt}
                     price={transaction.price}
