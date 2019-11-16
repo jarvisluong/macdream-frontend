@@ -6,6 +6,7 @@ import Typography from "../components/Typography";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffeeTogo } from "@fortawesome/pro-regular-svg-icons";
+import { transactionIconMap } from "../lib/transactionMap";
 
 const Container = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const Icon = styled.div`
   justify-content: center;
 `;
 
-export default function TransactionItem() {
+export default function TransactionItem({title, date, price, visaMcc}) {
   return (
     <Container>
       <div>
@@ -33,7 +34,7 @@ export default function TransactionItem() {
           icon={
             <Icon>
               <FontAwesomeIcon
-                icon={faCoffeeTogo}
+                icon={transactionIconMap[visaMcc]}
                 size="xs"
                 color="white"
                 style={{ width: 20 }}
@@ -43,10 +44,10 @@ export default function TransactionItem() {
           content={
             <div style={{ marginLeft: 10 }}>
               <Typography size={14} color={COLORS.primaryColor} bold>
-                Coffee Shop
+                {title}
               </Typography>
               <Typography color={COLORS.primaryColor} size={14}>
-                {moment().format("DD.MM.YYYY")}
+                {moment(date).format("DD.MM.YYYY")}
               </Typography>
             </div>
           }
@@ -54,7 +55,7 @@ export default function TransactionItem() {
       </div>
       <div>
         <Typography color={COLORS.dangerColor} size={14}>
-          -2.2$
+          -{price}$
         </Typography>
       </div>
     </Container>

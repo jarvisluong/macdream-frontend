@@ -1,30 +1,20 @@
 import React from "react";
 import FlipMove from "react-flip-move";
 import { Grid, Avatar } from "@material-ui/core";
+import Router from "next/router";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import Typography from "../../components/Typography";
 import { COLORS } from "../../config/color";
+import { fetch } from "../../lib/fetch";
 import { RowWithIconText, Row } from "../../components/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPig,
-  faWineGlassAlt,
-  faSackDollar,
-  faCashRegister,
-  faBolt,
-  faHomeLgAlt
-} from "@fortawesome/pro-regular-svg-icons";
+import { faPig } from "@fortawesome/pro-regular-svg-icons";
 import { faCreditCard } from "@fortawesome/pro-light-svg-icons";
 import { makeStyles } from "@material-ui/core/styles";
 import GoalCard from "../../components/GoalCard";
 import TransactionItem from "./Transaction/TransactionItem";
-import axios from "axios";
-import {
-  faCoffeeTogo,
-  faBurgerSoda,
-  faHammerWar
-} from "@fortawesome/pro-regular-svg-icons";
 import useSWR from "swr";
+import { transactionIconMap } from "../../lib/transactionMap";
 
 const useStyles = makeStyles({
   purpleAvatar: {
@@ -39,18 +29,6 @@ const useStyles = makeStyles({
 const initProfile = {
   balance: 0,
   name: ""
-};
-
-const fetch = key => axios.get(key).then(({ data }) => data);
-
-const transactionIconMap = {
-  Alcohol: faWineGlassAlt,
-  Food: faBurgerSoda,
-  Deposit: faSackDollar,
-  Coffee: faCoffeeTogo,
-  Withdrawal: faCashRegister,
-  Rent: faHomeLgAlt,
-  Electronics: faBolt
 };
 
 const initGoal = [
@@ -184,7 +162,18 @@ export default function Profile() {
           <FlipMove>
             {transactions.map(transaction => {
               return (
-                <div style={{ margin: "20px auto" }} key={transaction.id}>
+                <div
+                  style={{ margin: "20px auto" }}
+                  key={transaction.id}
+                  onClick={() => {
+                    Router.push({
+                      pathname: "/transaction_detail",
+                      query: {
+                        transaction: transaction.id
+                      }
+                    });
+                  }}
+                >
                   <TransactionItem
                     icon={transactionIconMap[transaction.visaMcc]}
                     title={transaction.description}

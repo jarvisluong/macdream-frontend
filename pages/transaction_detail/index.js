@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Typography from "../../components/Typography";
 import TransactionCard from "../../components/TransactionCard";
 import TransactionItem from "../../components/TransactionItem";
@@ -7,6 +8,8 @@ import { COLORS } from "../../config/color";
 import styled from "styled-components";
 import Switch from "react-ios-switch";
 import { UsageChart } from "../../components/UsageChart";
+import useSWR from "swr";
+import { fetch } from "../../lib/fetch";
 
 const Icon = styled.div`
   width: 14px;
@@ -21,7 +24,26 @@ const IconContainer = styled.div`
   align-items: center;
 `;
 
+const initTransaction = {
+  id: 21,
+  personId: 1,
+  paymentDt: "2019-10-06T00:00:00Z",
+  price: 200,
+  visaMcc: "",
+  description: ""
+};
+
 export default function index() {
+  const router = useRouter();
+  const query = router.query;
+  const transactionId = query.transaction;
+
+  const { data: transactionData } = useSWR("/api/transactions", fetch);
+
+  const [transaction] = transactionData
+    ? transactionData.results.filter(result => `${result.id}` === transactionId)
+    : [initTransaction];
+
   let [isAutomate, setIsAutomate] = useState(false);
   const renderGoal = () => (
     <div>
@@ -71,7 +93,12 @@ export default function index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TransactionItem />
+      <TransactionItem
+        title={transaction.description}
+        visaMcc={transaction.visaMcc}
+        price={transaction.price}
+        date={transaction.paymentDt}
+      />
       <br />
       <Typography bold size={25} color="rgb(111,131,209)">
         17{" "}
