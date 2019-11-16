@@ -9,7 +9,12 @@ import { faPig } from "@fortawesome/pro-regular-svg-icons";
 import { faCreditCard } from "@fortawesome/pro-light-svg-icons";
 import { makeStyles } from "@material-ui/core/styles";
 import GoalCard from "../../components/GoalCard";
-import TransactionItem from "../../components/TransactionItem";
+import TransactionItem from "./Transaction/TransactionItem";
+import {
+  faCoffeeTogo,
+  faBurgerSoda,
+  faHammerWar
+} from "@fortawesome/pro-regular-svg-icons";
 
 const useStyles = makeStyles({
   purpleAvatar: {
@@ -25,13 +30,7 @@ export default function Profile() {
   const classes = useStyles();
   return (
     <div>
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        direction="column"
-        style={{ margin: 20 }}
-      >
+      <div style={{ margin: "20px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
         <Avatar className={classes.purpleAvatar}>
           <Typography size={30} color={COLORS.white}>
             J
@@ -43,7 +42,7 @@ export default function Profile() {
         <Typography size={16} color={COLORS.grey}>
           Total balance
         </Typography>
-      </Grid>
+      </div>
       <div style={{ margin: "20px auto" }}>
         <div>
           <RowWithIconText
@@ -86,7 +85,7 @@ export default function Profile() {
           />
         </div>
       </div>
-      <div style={{ margin: 30 }}>
+      <div style={{ margin: "20px auto" }}>
         <div>
           <RowWithIconText
             icon={
@@ -101,8 +100,31 @@ export default function Profile() {
             }
           />
         </div>
-        <div>
-          <div>{/* <TransactionItem/> */}</div>
+        <div style={{ margin: "20px auto" }}>
+          <div style={{ margin: "20px auto" }}>
+            <TransactionItem
+              icon={faCoffeeTogo}
+              title="Coffee Shop"
+              date={new Date()}
+              price={2.2}
+            />
+          </div>
+          <div style={{ margin: "20px auto" }}>
+            <TransactionItem
+              icon={faBurgerSoda}
+              title="Burger Shop"
+              date={new Date()}
+              price={10.35}
+            />
+          </div>
+          <div style={{ margin: "20px auto" }}>
+            <TransactionItem
+              icon={faHammerWar}
+              title="Subscription"
+              date={new Date()}
+              price={12.99}
+            />
+          </div>
         </div>
       </div>
     </div>
