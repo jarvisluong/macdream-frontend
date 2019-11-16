@@ -45,25 +45,42 @@ export default function index() {
     : [initTransaction];
 
   let [isAutomate, setIsAutomate] = useState(false);
-  const renderGoal = () => (
-    <div>
-      <IconContainer>
-        <Icon />
-        <Typography color={COLORS.primaryColor} bold>
-          Goals
-        </Typography>
-      </IconContainer>
-      <div style={{ marginTop: 20 }}>
-        <Typography fontFamily="MontserratMedium" color="rgba(0,0,0,0.5)">
-          If you skipped 2 coffees a week, you would reach your saving goals:{" "}
-          <Typography bold component="b">
-            New Macbook 14 days
-          </Typography>{" "}
-          earlier
-        </Typography>
+
+  let shouldShowGoalHelp = true;
+  switch (transaction.visaMccId) {
+    case 1:
+    case 5:
+    case 2:
+      break;
+
+    default:
+      shouldShowGoalHelp = false;
+  }
+
+  const renderGoal = () => {
+    // see transactionMap.js for knowing which id is which
+
+    return (
+      <div>
+        <IconContainer>
+          <Icon />
+          <Typography color={COLORS.primaryColor} bold>
+            Goals
+          </Typography>
+        </IconContainer>
+        <div style={{ marginTop: 20 }}>
+          <Typography fontFamily="MontserratMedium" color="rgba(0,0,0,0.5)">
+            If you skipped 2 {transaction.description} a week, you would reach
+            your saving goals:{" "}
+            <Typography bold component="b">
+              New Macbook 14 days
+            </Typography>{" "}
+            earlier
+          </Typography>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderAutomate = () => {
     return (
@@ -76,8 +93,8 @@ export default function index() {
         </IconContainer>
         <div style={{ marginTop: 20 }}>
           <Typography fontFamily="MontserratMedium" color="rgba(0,0,0,0.5)">
-            Activate a saving rule! Everytime you spend in coffee, 10% goes to
-            investmentgoal{" "}
+            Activate a saving rule! Everytime you spend in{" "}
+            {transaction.description}, 10% goes to investmentgoal{" "}
             <Typography bold component="b">
               S&P500ETF
             </Typography>
@@ -120,9 +137,11 @@ export default function index() {
       <UsageChart />
       <br />
       <div>
-        <div style={{ margin: "8px auto" }}>
-          <TransactionCard leftContent={renderGoal()} />
-        </div>
+        {shouldShowGoalHelp && (
+          <div style={{ margin: "8px auto" }}>
+            <TransactionCard leftContent={renderGoal()} />
+          </div>
+        )}
         <TransactionCard
           leftContent={renderAutomate()}
           rightContent={
