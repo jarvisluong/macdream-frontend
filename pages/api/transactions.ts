@@ -3,9 +3,15 @@ import {
 //   InsertNewTransactionRequest
 } from "../../macdream.dtos";
 import { client } from "../../lib/client";
+import { NextApiResponse, NextApiRequest } from "next";
 
-export async function queryTransactions() {
-  return await client.get(new QueryTransactions());
+export default async function queryTransactions(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const result = await client.get(new QueryTransactions());
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 }
 
 // Not working atm

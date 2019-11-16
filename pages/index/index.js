@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import FlipMove from "react-flip-move";
 import { Grid, Avatar } from "@material-ui/core";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import Typography from "../../components/Typography";
 import { COLORS } from "../../config/color";
 import { RowWithIconText, Row } from "../../components/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPig } from "@fortawesome/pro-regular-svg-icons";
+import { faPig, faWineGlassAlt, faSackDollar, faCashRegister, faBolt, faHomeLgAlt } from "@fortawesome/pro-regular-svg-icons";
 import { faCreditCard } from "@fortawesome/pro-light-svg-icons";
 import { makeStyles } from "@material-ui/core/styles";
 import GoalCard from "../../components/GoalCard";
-import { queryPersons } from "../../api/persons";
 import TransactionItem from "./Transaction/TransactionItem";
+import axios from "axios";
 import {
   faCoffeeTogo,
   faBurgerSoda,
   faHammerWar
 } from "@fortawesome/pro-regular-svg-icons";
+import useSWR from "swr";
 
 const useStyles = makeStyles({
   purpleAvatar: {
@@ -32,19 +34,26 @@ const initProfile = {
   name: ""
 };
 
+const fetch = key => axios.get(key).then(({ data }) => data);
+
+const transactionIconMap = {
+  Alcohol: faWineGlassAlt,
+  Food: faBurgerSoda,
+  Deposit: faSackDollar,
+  Coffee: faCoffeeTogo,
+  Withdrawal: faCashRegister,
+  Rent: faHomeLgAlt,
+  Electronics: faBolt
+}
+
 export default function Profile() {
   const classes = useStyles();
 
-  const [{name, balance}, setProfile] = useState(initProfile);
+  const { data: personData } = useSWR("/api/persons", fetch);
+  const { data: transactionData } = useSWR("/api/transactions", fetch);
+  const [person] = personData ? personData.results : [initProfile];
 
-  useEffect(() => {
-    queryPersons().then(res => {
-      setProfile({
-        balance: res.results[0].balance,
-        name: res.results[0].name
-      });
-    });
-  }, []);
+  const transactions = transactionData ? transactionData.results : [];
 
   return (
     <div style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}>
@@ -59,11 +68,11 @@ export default function Profile() {
       >
         <Avatar className={classes.purpleAvatar}>
           <Typography size={30} color={COLORS.white}>
-            {name}
+            {person.name[0]}
           </Typography>
         </Avatar>
         <Typography size={30} bold color={COLORS.darkBlue}>
-          {balance} $
+          {person.balance} $
         </Typography>
         <Typography size={16} color={COLORS.grey}>
           Total balance
@@ -127,30 +136,20 @@ export default function Profile() {
           />
         </div>
         <div style={{ margin: "20px auto" }}>
-          <div style={{ margin: "20px auto" }}>
-            <TransactionItem
-              icon={faCoffeeTogo}
-              title="Coffee Shop"
-              date={new Date()}
-              price={2.2}
-            />
-          </div>
-          <div style={{ margin: "20px auto" }}>
-            <TransactionItem
-              icon={faBurgerSoda}
-              title="Burger Shop"
-              date={new Date()}
-              price={10.35}
-            />
-          </div>
-          <div style={{ margin: "20px auto" }}>
-            <TransactionItem
-              icon={faHammerWar}
-              title="Subscription"
-              date={new Date()}
-              price={12.99}
-            />
-          </div>
+          <FlipMove>
+            {transactions.map(transaction => {
+              return (
+                <div style={{ margin: "20px auto" }} key={transaction.id}>
+                  <TransactionItem
+                    icon={transactionIconMap[transaction.visaMcc]}
+                    title={transaction.description}
+                    date={transaction.paymentDt}
+                    price={transaction.price}
+                  />
+                </div>
+              );
+            })}
+          </FlipMove>
         </div>
       </div>
     </div>
