@@ -70,9 +70,26 @@ export default function index() {
         <title>Transaction Detail</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <TransactionItem />
+      <br />
+      <Typography bold size={25} color="rgb(111,131,209)">
+        17{" "}
+        <Typography
+          size={14}
+          color="rgb(159,169,184)"
+          component="span"
+          fontFamily="MontserratMedium"
+        >
+          Times
+        </Typography>
+      </Typography>
+      <Typography size={10} color="rgb(159,169,184)">
+        Past 4 weeks
+      </Typography>
+      <br />
+      <br />
       <UsageChart />
+      <br />
       <div>
         <div style={{ margin: "20px auto" }}>
           <TransactionCard leftContent={renderGoal()} />

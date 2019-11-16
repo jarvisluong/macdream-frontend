@@ -9,11 +9,7 @@ import MontserratMedium from "../assets/fonts/Montserrat/Montserrat-Medium.ttf";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-  }
+  
     @font-face {
         font-family: 'Montserrat';
         src: url(${Montserrat}) format('opentype');
@@ -34,6 +30,12 @@ const GlobalStyles = createGlobalStyle`
         font-family: 'MontserratMedium';
         src: url(${MontserratMedium}) format('opentype');
     }
+    * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-family: 'Montserrat'
+  }
 `;
 
 class MyApp extends App {
