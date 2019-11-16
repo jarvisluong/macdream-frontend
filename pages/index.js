@@ -1,6 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
 import Nav from '../components/nav'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCoffeeTogo} from '@fortawesome/pro-regular-svg-icons';
 
 const Home = () => (
   <div>
@@ -8,7 +10,7 @@ const Home = () => (
       <title>Home</title>
       <link rel='icon' href='/favicon.ico' />
     </Head>
-
+    <FontAwesomeIcon icon={faCoffeeTogo} color="dark" />
     <Nav />
 
     <div className='hero'>
