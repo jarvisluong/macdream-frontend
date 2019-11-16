@@ -65,11 +65,12 @@ export default function index() {
     );
   };
   return (
-    <div>
+    <div style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}>
       <Head>
         <title>Transaction Detail</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <TransactionItem />
       <br />
       <Typography bold size={25} color="rgb(111,131,209)">
@@ -86,12 +87,13 @@ export default function index() {
       <Typography size={10} color="rgb(159,169,184)">
         Past 4 weeks
       </Typography>
+
       <br />
       <br />
       <UsageChart />
       <br />
       <div>
-        <div style={{ margin: "20px auto" }}>
+        <div style={{ margin: "8px auto" }}>
           <TransactionCard leftContent={renderGoal()} />
         </div>
         <TransactionCard
