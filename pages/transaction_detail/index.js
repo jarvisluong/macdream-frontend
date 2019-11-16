@@ -6,10 +6,11 @@ import TransactionItem from "../../components/TransactionItem";
 import { COLORS } from "../../config/color";
 import styled from "styled-components";
 import Switch from "react-ios-switch";
+import { UsageChart } from "../../components/UsageChart";
 
 const Icon = styled.div`
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 8px;
   background-color: black;
   margin-right: 10px;
@@ -30,10 +31,13 @@ export default function index() {
           Goals
         </Typography>
       </IconContainer>
-      <div>
-        <Typography>
+      <div style={{ marginTop: 20 }}>
+        <Typography fontFamily="MontserratMedium" color="rgba(0,0,0,0.5)">
           If you skipped 2 coffees a week, you would reach your saving goals:{" "}
-          <b>New Macbook 14 days</b> earlier
+          <Typography bold component="b">
+            New Macbook 14 days
+          </Typography>{" "}
+          earlier
         </Typography>
       </div>
     </div>
@@ -48,10 +52,13 @@ export default function index() {
             Automate
           </Typography>
         </IconContainer>
-        <div>
-          <Typography>
+        <div style={{ marginTop: 20 }}>
+          <Typography fontFamily="MontserratMedium" color="rgba(0,0,0,0.5)">
             Activate a saving rule! Everytime you spend in coffee, 10% goes to
-            investmentgoal <b>S&P500ETF</b>
+            investmentgoal{" "}
+            <Typography bold component="b">
+              S&P500ETF
+            </Typography>
           </Typography>
         </div>
       </div>
@@ -63,8 +70,26 @@ export default function index() {
         <title>Transaction Detail</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <TransactionItem />
+      <br />
+      <Typography bold size={25} color="rgb(111,131,209)">
+        17{" "}
+        <Typography
+          size={14}
+          color="rgb(159,169,184)"
+          component="span"
+          fontFamily="MontserratMedium"
+        >
+          Times
+        </Typography>
+      </Typography>
+      <Typography size={10} color="rgb(159,169,184)">
+        Past 4 weeks
+      </Typography>
+      <br />
+      <br />
+      <UsageChart />
+      <br />
       <div>
         <div style={{ margin: "20px auto" }}>
           <TransactionCard leftContent={renderGoal()} />

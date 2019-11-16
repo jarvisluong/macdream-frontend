@@ -10,6 +10,11 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+function CustomShape(props) {
+  const {x,y,width, height} = props;
+  return <path d="" />
+}
+
 export function UsageChart() {
   const data = [
     {
@@ -31,11 +36,11 @@ export function UsageChart() {
   ];
   return (
     <ResponsiveContainer width={"100%"} height={200}>
-      <BarChart data={data}>
+      <BarChart data={data} barCategoryGap={4} barGap={4}>
         <CartesianGrid strokeDasharray="2 2" vertical={false} />
-        <XAxis dataKey="name" />
-        <YAxis dataKey="value" />
-        <Bar dataKey="value" fill="#8884d8" height={20} />
+        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 12}} />
+        <YAxis dataKey="value" orientation="right" width={20} axisLine={false} tickLine={false} tick={{fontSize: 12}} />
+        <Bar dataKey="value" fill="rgb(111,131,209)" barSize={20} />
       </BarChart>
     </ResponsiveContainer>
   );

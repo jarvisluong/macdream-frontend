@@ -1,5 +1,5 @@
 /* Options:
-Date: 2019-11-16 13:38:13
+Date: 2019-11-16 14:17:13
 Version: 5.70
 Tip: To override a DTO option, remove "//" prefix before updating
 BaseUrl: http://167.172.165.116
@@ -40,6 +40,18 @@ export class PersonJson
     public transactions: TransactionDto[];
 
     public constructor(init?: Partial<PersonJson>) { (Object as any).assign(this, init); }
+}
+
+export enum VisaMccEnum
+{
+    Missing = 0,
+    Electronics = 1234,
+    Coffee = 1235,
+    Rent = 1236,
+    Food = 1237,
+    Alcohol = 1238,
+    Deposit = 7777,
+    Withdrawal = 7778,
 }
 
 export class QueryBase
@@ -148,17 +160,9 @@ export class PersonTbl
     // @StringLength(MaximumLength=255, MinimumLength=1)
     public name: string;
 
-    public constructor(init?: Partial<PersonTbl>) { (Object as any).assign(this, init); }
-}
+    public balance: number;
 
-export enum VisaMccEnum
-{
-    Missing = 0,
-    Electronics = 1234,
-    Coffee = 1235,
-    Rent = 1236,
-    Food = 1237,
-    Alcohol = 1238,
+    public constructor(init?: Partial<PersonTbl>) { (Object as any).assign(this, init); }
 }
 
 export class TransactionTbl
@@ -228,6 +232,10 @@ export class GetAllThePeopleAndTransactionsRequest implements IReturn<GetAllTheP
 export class InsertNewTransactionRequest implements IReturn<InsertNewTransactionResponse>
 {
     public personId: number;
+    public paymentDt: string;
+    public price: number;
+    public visaMcc: VisaMccEnum;
+    public description: string;
 
     public constructor(init?: Partial<InsertNewTransactionRequest>) { (Object as any).assign(this, init); }
     public createResponse() { return new InsertNewTransactionResponse(); }

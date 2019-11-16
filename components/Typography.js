@@ -6,22 +6,24 @@ export default function Text({
   textAlign,
   color,
   variant,
+  fontFamily,
   children,
   bold,
-  size
+  size,
+  component
 }) {
   const useStyles = makeStyles({
     root: {
       color: color ? color : "black",
       textAlign: textAlign ? textAlign : "start",
-      fontFamily: bold ? "MontserratBold" : "MontserratMedium",
+      fontFamily: fontFamily || (bold ? "MontserratSemiBold" : "Montserrat"),
       fontSize: size ? `${size}px` : "14px"
     }
   });
   const classes = useStyles();
   return (
-    <div>
-      <Typography className={classes.root}>{children}</Typography>
-    </div>
+    <Typography className={classes.root} component={component}>
+      {children}
+    </Typography>
   );
 }
