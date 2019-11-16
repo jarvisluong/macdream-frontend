@@ -71,6 +71,7 @@ export default function Profile() {
   useEffect(() => {
     const interval = setInterval(() => {
       trigger("/api/transactions");
+      trigger("/api/goals");
     }, 5000);
     return () => {
       clearInterval(interval);
