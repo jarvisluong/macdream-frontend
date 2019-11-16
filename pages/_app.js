@@ -7,6 +7,9 @@ import MontserratSemiBold from "../assets/fonts/Montserrat/Montserrat-SemiBold.t
 import MontserratMedium from "../assets/fonts/Montserrat/Montserrat-Medium.ttf";
 
 import { createGlobalStyle } from "styled-components";
+import { scrollToTop } from "../lib/scrollToTop";
+
+scrollToTop();
 
 const GlobalStyles = createGlobalStyle`
   

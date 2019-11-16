@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 export default function Profile() {
   const classes = useStyles();
   return (
-    <div>
+    <div style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}>
       <div style={{ margin: "20px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
         <Avatar className={classes.purpleAvatar}>
           <Typography size={30} color={COLORS.white}>
