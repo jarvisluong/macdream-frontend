@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import Nav from "../components/nav";
-import TransactionItem from "../components/TransactionItem";
-import TransactionCard from "../components/TransactionCard";
+import Typography from "../../components/Typography";
+import TransactionCard from "../../components/TransactionCard";
+import TransactionItem from "../../components/TransactionItem";
+import { COLORS } from "../../config/color";
 import styled from "styled-components";
-import Typography from "../components/Typography";
-import { COLORS } from "../config/color";
 import Switch from "react-ios-switch";
 
 const Icon = styled.div`
@@ -21,7 +20,7 @@ const IconContainer = styled.div`
   align-items: center;
 `;
 
-const Home = () => {
+export default function index() {
   let [isAutomate, setIsAutomate] = useState(false);
   const renderGoal = () => (
     <div>
@@ -61,11 +60,9 @@ const Home = () => {
   return (
     <div>
       <Head>
-        <title>Home</title>
+        <title>Transaction Detail</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Nav />
 
       <TransactionItem />
       <div>
@@ -87,21 +84,6 @@ const Home = () => {
           }
         />
       </div>
-      <style global jsx>
-        {`
-          * {
-            box-sizing: border-box;
-          }
-
-          body {
-            padding: 0;
-            margin: 0;
-            font-family: "Montserrat";
-          }
-        `}
-      </style>
     </div>
   );
-};
-
-export default Home;
+}
