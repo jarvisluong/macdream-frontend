@@ -7,17 +7,20 @@ export const Row = styled.div`
   align-items: center;
 `;
 
-// export const CustomRow = styled(Row)<{
-//   justifyContent: 'center' | 'space-between' | 'space-evenly' | 'space-around'
-// }>`
-//   justify-content: ${props => props.justifyContent};
-// `;
+export const CustomRow =
+  styled(Row) <
+  {
+    justifyContent: "center" | "space-between" | "space-evenly" | "space-around"
+  } >
+  `
+  justify-content: ${props => props.justifyContent}
+`;
 
 export const RowWithIconText = ({ icon, content }) => {
   return (
     <Row>
       {icon}
-      {content}
+      <div style={{ marginLeft: 15 }}>{content}</div>
     </Row>
   );
 };
