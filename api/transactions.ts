@@ -9,7 +9,7 @@ export async function queryTransactions() {
 }
 
 // Not working atm
-export async function createTransaction(body) {
+export async function createTransaction() {
   throw new Error("not implemented");
   // return await client.post(new InsertNewTransactionRequest, body)
 }
