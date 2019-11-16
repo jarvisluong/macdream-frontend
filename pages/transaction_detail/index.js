@@ -10,12 +10,14 @@ import Switch from "react-ios-switch";
 import { UsageChart } from "../../components/UsageChart";
 import useSWR from "swr";
 import { fetch } from "../../lib/fetch";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPig } from "@fortawesome/pro-regular-svg-icons";
+import { faCreditCard, faCoin } from "@fortawesome/pro-light-svg-icons";
 
 const Icon = styled.div`
   width: 14px;
   height: 14px;
-  border-radius: 8px;
-  background-color: black;
+  border-radius: 7px;
   margin-right: 10px;
 `;
 
@@ -48,7 +50,11 @@ export default function index() {
   const renderGoal = () => (
     <div>
       <IconContainer>
-        <Icon />
+        <div style={{ width: 30, marginRight: 15 }}>
+          <Typography size={30} color={COLORS.primaryColor}>
+            <FontAwesomeIcon icon={faPig} />
+          </Typography>
+        </div>
         <Typography color={COLORS.primaryColor} bold>
           Goals
         </Typography>
@@ -69,7 +75,11 @@ export default function index() {
     return (
       <div>
         <IconContainer>
-          <Icon />
+          <div style={{ marginRight: 15, width: 30 }}>
+            <Typography size={16} color={COLORS.primaryColor}>
+              <FontAwesomeIcon icon={faCoin} />
+            </Typography>
+          </div>
           <Typography color={COLORS.primaryColor} bold>
             Automate
           </Typography>
