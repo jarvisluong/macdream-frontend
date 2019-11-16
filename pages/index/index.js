@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FlipMove from "react-flip-move";
 import { Grid, Avatar } from "@material-ui/core";
 import Router from "next/router";
@@ -13,7 +13,7 @@ import { faCreditCard } from "@fortawesome/pro-light-svg-icons";
 import { makeStyles } from "@material-ui/core/styles";
 import GoalCard from "../../components/GoalCard";
 import TransactionItem from "./Transaction/TransactionItem";
-import useSWR from "swr";
+import useSWR, { trigger } from "swr";
 import { transactionIconMap } from "../../lib/transactionMap";
 
 const useStyles = makeStyles({
@@ -67,6 +67,16 @@ const initGoal = [
 
 export default function Profile() {
   const classes = useStyles();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      trigger("/api/transactions");
+      trigger("/api/goals");
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const { data: personData } = useSWR("/api/persons", fetch);
   const { data: transactionData } = useSWR("/api/transactions", fetch);
@@ -175,7 +185,7 @@ export default function Profile() {
                   }}
                 >
                   <TransactionItem
-                    icon={transactionIconMap[transaction.visaMcc]}
+                    icon={transactionIconMap[transaction.visaMccId]}
                     title={transaction.description}
                     date={transaction.paymentDt}
                     price={transaction.price}

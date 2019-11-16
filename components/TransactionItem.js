@@ -26,7 +26,7 @@ const Icon = styled.div`
   justify-content: center;
 `;
 
-export default function TransactionItem({title, date, price, visaMcc}) {
+export default function TransactionItem({title, date, price, visaMccId}) {
   return (
     <Container>
       <div>
@@ -34,7 +34,7 @@ export default function TransactionItem({title, date, price, visaMcc}) {
           icon={
             <Icon>
               <FontAwesomeIcon
-                icon={transactionIconMap[visaMcc]}
+                icon={transactionIconMap[visaMccId]}
                 size="xs"
                 color="white"
                 style={{ width: 20 }}
