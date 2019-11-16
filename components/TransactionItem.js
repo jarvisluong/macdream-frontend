@@ -37,10 +37,10 @@ export default function TransactionItem() {
           }
           content={
             <div style={{ marginLeft: 10 }}>
-              <Typography size={16} color={COLORS.primaryColor} bold>
+              <Typography size={14} color={COLORS.primaryColor} bold>
                 Coffee Shop
               </Typography>
-              <Typography color={COLORS.primaryColor} size={16}>
+              <Typography color={COLORS.primaryColor} size={14}>
                 {moment().format("DD.MM.YYYY")}
               </Typography>
             </div>
@@ -48,7 +48,7 @@ export default function TransactionItem() {
         />
       </div>
       <div>
-        <Typography color={COLORS.dangerColor} size={16}>
+        <Typography color={COLORS.dangerColor} size={14}>
           -2.2$
         </Typography>
       </div>

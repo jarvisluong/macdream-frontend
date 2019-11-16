@@ -35,7 +35,7 @@ export function UsageChart() {
         <CartesianGrid strokeDasharray="2 2" vertical={false} />
         <XAxis dataKey="name" />
         <YAxis dataKey="value" />
-        <Bar dataKey="value" fill="#8884d8" height={20} />
+        <Bar dataKey="value" fill="rgb(111,131,209)" barSize={20} />
       </BarChart>
     </ResponsiveContainer>
   );
