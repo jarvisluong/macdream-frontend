@@ -1,7 +1,7 @@
 {
   "build": {
     "env": {
-      "VARIABLE_NAME": "@fontawesome_npm_auth_token"
+      "FONTAWESOME_NPM_AUTH_TOKEN": "@fontawesome_npm_auth_token"
     }
   }
 }
