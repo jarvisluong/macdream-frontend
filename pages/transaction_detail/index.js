@@ -76,7 +76,6 @@ export default function index() {
               <Switch
                 checked={isAutomate}
                 onChange={checked => {
-                  console.log({ checked });
                   setIsAutomate(checked);
                 }}
               />
