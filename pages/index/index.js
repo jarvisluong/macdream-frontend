@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Avatar } from "@material-ui/core";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import Typography from "../../components/Typography";
@@ -9,6 +9,7 @@ import { faPig } from "@fortawesome/pro-regular-svg-icons";
 import { faCreditCard } from "@fortawesome/pro-light-svg-icons";
 import { makeStyles } from "@material-ui/core/styles";
 import GoalCard from "../../components/GoalCard";
+import { queryPersons } from "../../api/persons";
 import TransactionItem from "./Transaction/TransactionItem";
 import {
   faCoffeeTogo,
@@ -26,18 +27,43 @@ const useStyles = makeStyles({
   }
 });
 
+const initProfile = {
+  balance: 0,
+  name: ""
+};
+
 export default function Profile() {
   const classes = useStyles();
+
+  const [{name, balance}, setProfile] = useState(initProfile);
+
+  useEffect(() => {
+    queryPersons().then(res => {
+      setProfile({
+        balance: res.results[0].balance,
+        name: res.results[0].name
+      });
+    });
+  }, []);
+
   return (
     <div style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}>
-      <div style={{ margin: "20px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      <div
+        style={{
+          margin: "20px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
         <Avatar className={classes.purpleAvatar}>
           <Typography size={30} color={COLORS.white}>
-            J
+            {name}
           </Typography>
         </Avatar>
         <Typography size={30} bold color={COLORS.darkBlue}>
-          14406,6$
+          {balance} $
         </Typography>
         <Typography size={16} color={COLORS.grey}>
           Total balance

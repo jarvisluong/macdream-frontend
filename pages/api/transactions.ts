@@ -1,8 +1,8 @@
 import {
   QueryTransactions,
 //   InsertNewTransactionRequest
-} from "../macdream.dtos";
-import { client } from "./client";
+} from "../../macdream.dtos";
+import { client } from "../../lib/client";
 
 export async function queryTransactions() {
   return await client.get(new QueryTransactions());
