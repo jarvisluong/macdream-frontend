@@ -10,6 +10,7 @@ import Switch from "react-ios-switch";
 import { UsageChart } from "../../components/UsageChart";
 import useSWR from "swr";
 import { fetch } from "../../lib/fetch";
+import Axios from "axios";
 
 const Icon = styled.div`
   width: 14px;
@@ -56,6 +57,22 @@ export default function index() {
     default:
       shouldShowGoalHelp = false;
   }
+
+  const { data: visaMccIdData } = useSWR(() => "/api/get-visa-mcc", fetch);
+
+  const [visaMcc] = visaMccIdData
+    ? visaMccIdData.results.filter(
+        result => result.id === transaction.visaMccId
+      )
+    : [
+        {
+          id: 0,
+          visaMcc: "",
+          isSaving: false
+        }
+      ];
+
+  console.log(visaMcc)
 
   const renderGoal = () => {
     // see transactionMap.js for knowing which id is which
@@ -147,9 +164,11 @@ export default function index() {
           rightContent={
             <div style={{ minWidth: "40px", minHeight: "20px" }}>
               <Switch
-                checked={isAutomate}
+                checked={visaMcc.isSaving}
                 onChange={checked => {
-                  setIsAutomate(checked);
+                  Axios.put(
+                    `/api/update-visa-mcc?isSaving=${checked}&visaMccId=${visaMcc.id}`
+                  );
                 }}
               />
             </div>
