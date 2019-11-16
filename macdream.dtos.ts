@@ -1,5 +1,5 @@
 /* Options:
-Date: 2019-11-16 14:17:13
+Date: 2019-11-16 17:42:23
 Version: 5.70
 Tip: To override a DTO option, remove "//" prefix before updating
 BaseUrl: http://167.172.165.116
@@ -105,6 +105,7 @@ export class GoalTbl
     // @Required()
     public goalType: GoalTypeEnum;
 
+    public saving: number;
     public price: number;
     // @StringLength(MaximumLength=100, MinimumLength=1)
     public name: string;
@@ -171,17 +172,28 @@ export class TransactionTbl
     // @References(Type=typeof(PersonTbl))
     public personId: number;
 
+    // @References(Type=typeof(VisaMccTbl))
+    public visaMccId: number;
+
     // @Required()
     public paymentDt: string;
 
     public price: number;
-    // @Required()
-    public visaMcc: VisaMccEnum;
-
     // @StringLength(MaximumLength=255, MinimumLength=1)
     public description: string;
 
     public constructor(init?: Partial<TransactionTbl>) { (Object as any).assign(this, init); }
+}
+
+export class VisaMccTbl
+{
+    public id: number;
+    // @Required()
+    public visaMcc: VisaMccEnum;
+
+    public isSaving: boolean;
+
+    public constructor(init?: Partial<VisaMccTbl>) { (Object as any).assign(this, init); }
 }
 
 export class GetAllThePeopleAndTransactionsResponse
@@ -189,6 +201,25 @@ export class GetAllThePeopleAndTransactionsResponse
     public people: PersonJson[];
 
     public constructor(init?: Partial<GetAllThePeopleAndTransactionsResponse>) { (Object as any).assign(this, init); }
+}
+
+export class UpdateVisaMccResponse
+{
+    public visaMccId: number;
+    public visaMcc: VisaMccEnum;
+    public isSaving: boolean;
+
+    public constructor(init?: Partial<UpdateVisaMccResponse>) { (Object as any).assign(this, init); }
+}
+
+export class UpdateGoalResponse
+{
+    public goalId: number;
+    public goalSaving: number;
+    public goalPrice: number;
+    public goalAchieved: boolean;
+
+    public constructor(init?: Partial<UpdateGoalResponse>) { (Object as any).assign(this, init); }
 }
 
 export class InsertNewTransactionResponse
@@ -228,13 +259,37 @@ export class GetAllThePeopleAndTransactionsRequest implements IReturn<GetAllTheP
     public getTypeName() { return 'GetAllThePeopleAndTransactionsRequest'; }
 }
 
+// @Route("/visamcc/update", "PUT")
+export class UpdateVisaMccRequest implements IReturn<UpdateVisaMccResponse>
+{
+    public visaMccId: number;
+    public isSaving: boolean;
+
+    public constructor(init?: Partial<UpdateVisaMccRequest>) { (Object as any).assign(this, init); }
+    public createResponse() { return new UpdateVisaMccResponse(); }
+    public getTypeName() { return 'UpdateVisaMccRequest'; }
+}
+
+// @Route("/goals/update", "PUT")
+export class UpdateGoalRequest implements IReturn<UpdateGoalResponse>
+{
+    public personId: number;
+    public goalId: number;
+    public amount: number;
+    public description: string;
+
+    public constructor(init?: Partial<UpdateGoalRequest>) { (Object as any).assign(this, init); }
+    public createResponse() { return new UpdateGoalResponse(); }
+    public getTypeName() { return 'UpdateGoalRequest'; }
+}
+
 // @Route("/transactions/new", "POST")
 export class InsertNewTransactionRequest implements IReturn<InsertNewTransactionResponse>
 {
     public personId: number;
     public paymentDt: string;
     public price: number;
-    public visaMcc: VisaMccEnum;
+    public visaMccId: number;
     public description: string;
 
     public constructor(init?: Partial<InsertNewTransactionRequest>) { (Object as any).assign(this, init); }
@@ -267,5 +322,14 @@ export class QueryTransactions extends QueryDb<TransactionTbl> implements IRetur
     public constructor(init?: Partial<QueryTransactions>) { super(init); (Object as any).assign(this, init); }
     public createResponse() { return new QueryResponse<TransactionTbl>(); }
     public getTypeName() { return 'QueryTransactions'; }
+}
+
+// @Route("/autoquery/visamccs")
+export class QueryVisaMccs extends QueryDb<VisaMccTbl> implements IReturn<QueryResponse<VisaMccTbl>>
+{
+
+    public constructor(init?: Partial<QueryVisaMccs>) { super(init); (Object as any).assign(this, init); }
+    public createResponse() { return new QueryResponse<VisaMccTbl>(); }
+    public getTypeName() { return 'QueryVisaMccs'; }
 }
 
