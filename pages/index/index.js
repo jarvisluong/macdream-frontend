@@ -15,6 +15,7 @@ import GoalCard from "../../components/GoalCard";
 import TransactionItem from "./Transaction/TransactionItem";
 import useSWR, { trigger } from "swr";
 import { transactionIconMap } from "../../lib/transactionMap";
+import Head from "next/head";
 
 const useStyles = makeStyles({
   purpleAvatar: {
@@ -90,6 +91,10 @@ export default function Profile() {
 
   return (
     <div style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 20 }}>
+      <Head>
+        <title>MacDream - Profile</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div
         style={{
           margin: "20px",
