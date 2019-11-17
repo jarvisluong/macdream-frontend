@@ -36,6 +36,12 @@ const initTransaction = {
   description: ""
 };
 
+const initMcc = {
+  id: 0,
+  visaMcc: "",
+  isSaving: false
+};
+
 export default function index() {
   const router = useRouter();
   const query = router.query;
@@ -66,17 +72,13 @@ export default function index() {
     ? visaMccIdData.results.filter(
         result => result.id === transaction.visaMccId
       )
-    : [
-        {
-          id: 0,
-          visaMcc: "",
-          isSaving: false
-        }
-      ];
+    : [initMcc];
+
+  const isMccSaving = visaMcc ? visaMcc.isSaving : initMcc.isSaving;
 
   useEffect(() => {
-    setIsAutomate(visaMcc.isSaving);
-  }, [visaMcc.isSaving]);
+    setIsAutomate(isMccSaving);
+  }, [isMccSaving]);
 
   const renderGoal = () => {
     // see transactionMap.js for knowing which id is which
@@ -176,7 +178,7 @@ export default function index() {
           rightContent={
             <div style={{ minWidth: "40px", minHeight: "20px" }}>
               <Switch
-                checked={visaMcc.isSaving}
+                checked={isAutomate}
                 onChange={checked => {
                   setIsAutomate(checked);
                   Axios.put(
