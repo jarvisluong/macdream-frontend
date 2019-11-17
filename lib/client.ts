@@ -1,3 +1,3 @@
 import { JsonServiceClient } from "servicestack-client";
 
-export const client = new JsonServiceClient("http://167.172.165.116");
+export const client = new JsonServiceClient("https://macdream-backend.herokuapp.com");
