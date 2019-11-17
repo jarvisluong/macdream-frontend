@@ -54,7 +54,7 @@ export default async function createTransaction(
     case "GET":
       try {
         const body = new QueryTransactions();
-        body.orderBy = "-paymentDt";
+        body.orderBy = "-id";
         const results = await client.get(body);
         res.status(200).json(results);
       } catch (error) {
