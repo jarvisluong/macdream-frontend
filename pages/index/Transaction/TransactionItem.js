@@ -34,7 +34,7 @@ export default function TransactionItem({ icon, date, title, price }) {
           icon={
             <Icon>
               <Typography color={COLORS.primaryColor} size={20}>
-                <FontAwesomeIcon icon={icon} />
+                <FontAwesomeIcon icon={icon} style={{ width: 16 }} />
               </Typography>
             </Icon>
           }
